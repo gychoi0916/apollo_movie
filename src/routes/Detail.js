@@ -13,6 +13,10 @@ const GET_MOVIE = gql`
             rating
             description_intro
         }
+        suggestions(id: $id) {
+            id
+            medium_cover_image
+        }
     }
 `;
 
@@ -28,6 +32,7 @@ const Container = styled.div `
 
 const Column = styled.h1 `
     margin-left: 10px;
+    width: 50%;
 `;
 
 const Title = styled.h1 `
@@ -41,12 +46,16 @@ const Subtitle = styled.h4 `
 
 const Description = styled.p `
     font-size: 28px;
+    width: 50%;
 `;
 
 const Poster = styled.div `
+    background-image: url(${props => props.bg});
     width: 25%;
     height: 60%;
     background-color: transparent;
+    background-size: cover;
+    background-position: center center;
 `;
 
 export default () => {
@@ -57,11 +66,15 @@ export default () => {
     return (
         <Container>
             <Column>
-                <Title>Name</Title>
-                <Subtitle>English  4.5</Subtitle>
-                <Description>lorem ipsum lalalla</Description>
+                <Title>{loading ? "Loading..." : data.movie.title}</Title>
+                <Subtitle>
+                    {data?.movie?.language} {data?.movie?.rating}
+                </Subtitle>
+                <Description>
+                    {data?.movie?.description_intro}
+                </Description>
             </Column>
-            <Poster></Poster>
+            <Poster bg={data?.movie?.medium_cover_image}></Poster>
         </Container>
     )
 };
