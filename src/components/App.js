@@ -6,7 +6,7 @@ import Detail from "../routes/Detail";
 function App() {
   return <Router>
     <Route exact path="/" component={Home} />
-    <Route exact path="/:id" component={Detail} />
+    <Route path="/:id" component={Detail} />
   </Router>
 }
 
